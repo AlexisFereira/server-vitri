@@ -1,0 +1,141 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Catalog {
+  _id: ID!
+  active: Boolean!
+  categories: String!
+  commerceName: String!
+  commerceType: ID!
+  extraFields: extraFields!
+  products: String!
+  userId: ID!
+}
+
+type Category {
+  _id: ID!
+  name: String!
+  userId: ID!
+}
+
+type CommerceList {
+  _id: ID!
+  description: String!
+  name: String!
+}
+
+input CreateCatalogInput {
+  commerceName: String!
+  commerceType: ID!
+  userId: ID!
+}
+
+input CreateCommerceListItem {
+  name: String!
+}
+
+input CreateManyCommerceListItem {
+  fields: [CreateCommerceListItem!]!
+}
+
+input CreateProductInput {
+  catalogId: String!
+  description: String!
+  image: String!
+  name: String!
+  price: String!
+  userId: String!
+}
+
+input CreateUserInput {
+  commerceName: String!
+  commerceType: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  phone: String!
+}
+
+type ExistEmail {
+  existEmail: Boolean!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createCatalog(catalogId: CreateCatalogInput!): [Catalog!]!
+  createCategory: Category!
+  createCommerceItems(commerceNames: CreateManyCommerceListItem!): [CommerceList!]!
+  createCommerceListItem(commerceName: CreateCommerceListItem!): CommerceList!
+  createProduct(productInput: CreateProductInput!): Product!
+  createUser(userInput: CreateUserInput!): User!
+  resetPassword(newPassword: String!): User!
+  signUp(createUserInput: CreateUserInput!): User!
+}
+
+type Product {
+  _id: ID!
+  active: Boolean!
+  catalogId: ID!
+  category: ID!
+  description: String!
+  image: String!
+  isPromo: Boolean!
+  name: String!
+  price: String!
+  userId: ID!
+}
+
+type Query {
+  confirmEmail(userId: String!): LoginResponse!
+  createResetLink(email: String!): ResetTokenResponse!
+  getCatalogById(catalogId: String!): [Catalog!]!
+  getCatalogs: [Catalog!]!
+  getCategories: [Category!]!
+  getCategoryById(categoryId: String!): Category!
+  getCommerceItem(commerceId: String!): CommerceList!
+  getCommerceList: [CommerceList!]!
+  getProductById(productId: String!): Product!
+  getProducts: [Product!]!
+  getUserById(userId: String!): User!
+  getUsers: [User!]!
+  hello: String!
+  login(LoginUserInput: LoginUserInput!): LoginResponse!
+  validateEmail(emailToValidate: String!): ExistEmail!
+  verifyResetLink: ResetTokenIsValid!
+}
+
+type ResetTokenIsValid {
+  isValid: Boolean!
+}
+
+type ResetTokenResponse {
+  exists: Boolean!
+  message: String!
+}
+
+type User {
+  _id: ID!
+  active: Boolean!
+  catalogs: [String!]!
+  confirmed: Boolean!
+  email: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
+}
+
+type extraFields {
+  address: String!
+  schedule: String!
+}
